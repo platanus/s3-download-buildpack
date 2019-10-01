@@ -13,13 +13,14 @@ env=$(cd "$3/" && pwd)
 s3simple() {
   local command="$1"
   local url="$2"
-  local file="${3:--}"
+  local file="$3"
 
-  if [ "${url:0:5}" != "s3://" ]; then
-    echo "Need an s3 url"
-    return 1
-  fi
   local path="${url:4}"
+
+  echo command
+  echo url
+  echo file
+  echo path
 
   if [ -z "${AWS_ACCESS_KEY_ID-}"  ]; then
     echo "Need AWS_ACCESS_KEY_ID to be set"
