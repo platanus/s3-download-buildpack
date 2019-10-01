@@ -65,6 +65,6 @@ done
 
 while read line; do
   #echo "-----> s3 downloading $line"
-  echo "-----> s3 downloading s3://{BUCKET_NAME}/${line}"
-  s3simple get "s3://${BUCKET_NAME}/${line}" > "basename ${line}"
+  echo "-----> s3 downloading https://${BUCKET_NAME}.s3.amazonaws.com/${line}"
+  s3simple get "https://${BUCKET_NAME}/${line}" > "basename ${line}"
 done < .buildpack-s3-downloads
