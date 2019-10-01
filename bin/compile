@@ -70,16 +70,6 @@ for e in AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY; do
 done
 
 while read line; do
-	case "$line" in
-		AWS_*=*)
-			export "$line"
-			;;
-		s3://*)
-			echo "-----> s3 downloading $line"
-			s3simple get "$line" > `basename $line`
-			;;
-		*)
-			echo "unknown line $line"
-			;;
-	esac
+  echo "-----> s3 downloading $line"
+  s3simple get `${BUCKET_NAME}/$line` > `basename $line`
 done < .buildpack-s3-downloads
