@@ -52,7 +52,7 @@ s3simple() {
   local signature=$(echo -n "$string_to_sign" | openssl sha1 -binary -hmac "${AWS_SECRET_ACCESS_KEY}" | openssl base64)
   local authorization="AWS ${AWS_ACCESS_KEY_ID}:${signature}"
 
-  curl $args -s -f -H Date:"${date}" -H Authorization:"${authorization}" "https://${url}/${file}"
+  curl $args -s -f -H Date:"${date}" -H Authorization:"${authorization}" "${url}/${file}"
 }
 
 cd $build
@@ -65,6 +65,6 @@ done
 
 while read line; do
   #echo "-----> s3 downloading $line"
-  echo "-----> s3 downloading ${BUCKET_NAME}/${line}"
-  s3simple get "${BUCKET_NAME}/${line}" > "basename ${line}"
+  echo "-----> s3 downloading s3://{BUCKET_NAME}/${line}"
+  s3simple get "s3://${BUCKET_NAME}/${line}" > "basename ${line}"
 done < .buildpack-s3-downloads
