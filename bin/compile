@@ -57,7 +57,7 @@ s3simple() {
 
 cd $build
 
-for e in AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY BUCKET_NAME; do
+for e in AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_REGION BUCKET_NAME; do
   if [ -f $env/$e ]; then
     export "$e=$(cat $env/$e)"
   fi
@@ -65,6 +65,6 @@ done
 
 while read line; do
   #echo "-----> s3 downloading $line"
-  echo "-----> s3 downloading https://${BUCKET_NAME}.s3.amazonaws.com/${line}"
-  s3simple get "https://${BUCKET_NAME}/${line}" > "basename ${line}"
+  echo "-----> s3 downloading https://s3-${AWS_REGION}.amazonaws.com/${BUCKET_NAME}/${line}"
+  s3simple get "https://s3-${AWS_REGION}.amazonaws.com/${BUCKET_NAME}/${line}" > "basename ${line}"
 done < .buildpack-s3-downloads
