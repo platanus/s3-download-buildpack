@@ -15,7 +15,8 @@ s3simple() {
   local url="$2"
   local file="$3"
 
-  echo "Trying to download ${url}"
+  echo "Trying to download $url"
+  echo "File: $file"
 
   if [ -z "${AWS_ACCESS_KEY_ID-}"  ]; then
     echo "Need AWS_ACCESS_KEY_ID to be set"
