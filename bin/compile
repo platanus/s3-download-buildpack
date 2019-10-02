@@ -15,8 +15,8 @@ s3simple() {
   local url="$2"
   local file="$3"
 
-  echo "Trying to download $url"
-  echo "File: $file"
+  echo "Trying to download ${url}"
+  echo "File: ${file}"
 
   if [ -z "${AWS_ACCESS_KEY_ID}"  ]; then
     echo "Need AWS_ACCESS_KEY_ID to be set"
@@ -40,7 +40,7 @@ s3simple() {
      -H "Date: ${dateValue}" \
      -H "Content-Type: ${contentType}" \
      -H "Authorization: AWS ${AWS_ACCESS_KEY_ID}:${signature}" \
-     https://s3-${AWS_REGION}.amazonaws.com/${BUCKET_NAME}/${file} -o $outputFile
+     https://s3-${AWS_REGION}.amazonaws.com/${BUCKET_NAME}/${file}
 }
 
 cd $build
