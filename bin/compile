@@ -54,5 +54,5 @@ done
 while read line; do
   #echo "-----> s3 downloading $line"
   echo "-----> s3 downloading https://s3.${AWS_REGION}.amazonaws.com/${BUCKET_NAME}/${line}"
-  s3simple get line
+  s3simple get $line
 done < .buildpack-s3-downloads
