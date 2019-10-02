@@ -15,8 +15,8 @@ s3simple() {
   local url="$2"
   local file="$3"
 
-  echo "Trying to download ${url}"
-  echo "File: ${file}"
+  echo "-----> Trying to download ${url}"
+  echo "-----> File: ${file}"
 
   if [ -z "${AWS_ACCESS_KEY_ID}"  ]; then
     echo "Need AWS_ACCESS_KEY_ID to be set"
@@ -54,5 +54,5 @@ done
 while read line; do
   #echo "-----> s3 downloading $line"
   echo "-----> s3 downloading https://s3.${AWS_REGION}.amazonaws.com/${BUCKET_NAME}/${line}"
-  s3simple get line > "basename ${line}"
+  s3simple get line > line
 done < .buildpack-s3-downloads
