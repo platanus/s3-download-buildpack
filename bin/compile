@@ -11,10 +11,7 @@ env=$(cd "$3/" && pwd)
 # s3simple is a small, simple bash s3 client with minimal dependencies.
 # See http://github.com/paulhammond/s3simple for documentation and licence.
 s3simple() {
-  local command="$1"
   local file="$2"
-
-  echo "-----> Trying to download ${file}"
 
   if [ -z "${AWS_ACCESS_KEY_ID}"  ]; then
     echo "Need AWS_ACCESS_KEY_ID to be set"
@@ -48,7 +45,6 @@ for e in AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_REGION BUCKET_NAME; do
 done
 
 while read line; do
-  #echo "-----> s3 downloading $line"
   echo "-----> s3 downloading https://s3.${AWS_REGION}.amazonaws.com/${BUCKET_NAME}/${line}"
   s3simple get $line > $line
 done < .buildpack-s3-downloads
