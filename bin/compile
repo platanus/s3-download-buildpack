@@ -12,11 +12,9 @@ env=$(cd "$3/" && pwd)
 # See http://github.com/paulhammond/s3simple for documentation and licence.
 s3simple() {
   local command="$1"
-  local url="$2"
-  local file="$3"
+  local file="$2"
 
-  echo "-----> Trying to download ${url}"
-  echo "-----> File: ${file}"
+  echo "-----> Trying to download ${file}"
 
   if [ -z "${AWS_ACCESS_KEY_ID}"  ]; then
     echo "Need AWS_ACCESS_KEY_ID to be set"
@@ -34,13 +32,11 @@ s3simple() {
   local stringToSign="GET\n\n${contentType}\n${dateValue}\n${resource}"
   local signature=`echo -en ${stringToSign} | openssl sha1 -hmac ${AWS_SECRET_ACCESS_KEY} -binary | base64`
   
-  #local authorization="AWS ${AWS_ACCESS_KEY_ID}:${signature}"
-  #curl $args -s -f -H Date:"${date}" -H Authorization:"${authorization}" "$url"
   curl -H "Host: s3-${AWS_REGION}.amazonaws.com" \
      -H "Date: ${dateValue}" \
      -H "Content-Type: ${contentType}" \
      -H "Authorization: AWS ${AWS_ACCESS_KEY_ID}:${signature}" \
-     https://s3.${AWS_REGION}.amazonaws.com/${BUCKET_NAME}/${file} -o "${file}"
+     https://s3.${AWS_REGION}.amazonaws.com/${BUCKET_NAME}/${file}
 }
 
 cd $build
